@@ -4,8 +4,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-v20+-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-> Breve descrição do projeto.  
-> Ex: API REST para gerenciamento de contas e transações bancárias.
+ API REST para gerenciamento de contas e transações bancárias.
 
 ---
 
