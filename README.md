@@ -1,0 +1,2 @@
+--npm install express pg
+--npm install dotenv
