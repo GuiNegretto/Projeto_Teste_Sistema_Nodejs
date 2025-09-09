@@ -14,10 +14,10 @@
 - Node.js
 - Express
 - PostgreSQL
-  npm install express pg
+  / npm install express pg
 - Sequelize (ou ORM de sua escolha)
 - Dotenv para variáveis de ambiente
-  npm install dotenv
+  / npm install dotenv
    
 ---
 
