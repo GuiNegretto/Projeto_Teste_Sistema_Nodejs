@@ -4,8 +4,8 @@ const contaController = require("../controllers/contaController");
 
 router.post("/", contaController.criarConta);
 router.get("/:id", contaController.buscarContaPorId);
-router.post("/:id/depositar", contaController.depositar);
-router.post("/:id/sacar", contaController.sacar);
+router.put("/:id/deposito", contaController.depositar);
+router.put("/:id/saque", contaController.sacar);
 router.get("/:id/saldo", contaController.consultarSaldo);
 router.get("/:id/extrato", contaController.consultarExtrato);
 
