@@ -3,10 +3,10 @@ const db = require("../database/db");
 
 exports.criarConta = async (req, res) => {
   try {
-    const { clienteId } = req.body;
+    const { id, saldo } = req.body;
     const result = await db.query(
-      "INSERT INTO contas (cliente_id, saldo) VALUES ($1, 0) RETURNING *",
-      [clienteId]
+      "INSERT INTO contas (id, saldo) VALUES ($1, $2) RETURNING *",
+      [id, saldo]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -35,3 +35,27 @@ exports.depositar = async (req, res) => {
     res.status(500).json({ error: "Erro ao depositar" });
   }
 };
+
+exports.buscarContaPorId = async (req, res) => {
+    try {
+        const { id } = req.params; // Captura o ID da URL
+        const result = await db.query(
+            "SELECT * FROM CONTAS WHERE id = $1",
+            [id]
+        );
+
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);
+        } else {
+            res.status(404).json({ error: "Conta não encontrado" });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Erro ao buscar conta por ID" });
+    }
+};
+
+
+exports.sacar = async (req, res) => { /* ... */ };
+exports.consultarSaldo = async (req, res) => { /* ... */ };
+exports.consultarExtrato = async (req, res) => { /* ... */ };
