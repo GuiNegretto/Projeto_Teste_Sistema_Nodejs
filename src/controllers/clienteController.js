@@ -1,14 +1,10 @@
 //const Cliente = require("../models/cliente");
 const db = require("../database/db");
+const { createClient } = require("../database/clientDB");
 
 exports.criarCliente = async (req, res) => {
   try {
-    const {id, nome, idade, email, id_conta } = req.body;
-    const result = await db.query(
-      "INSERT INTO clientes (id, nome, idade, email, id_conta) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [id, nome, idade, email, id_conta]
-    );
-    res.status(201).json(result.rows[0]);
+    res.status(201).json(await createClient(req.body, db));
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao criar cliente" });
