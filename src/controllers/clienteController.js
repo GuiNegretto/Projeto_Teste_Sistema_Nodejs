@@ -4,10 +4,15 @@ const { createClient } = require("../database/clientDB");
 
 exports.criarCliente = async (req, res) => {
   try {
+    const cliente = req.body;
+
+    if (!cliente.idade || typeof cliente.idade !== 'number' || cliente.idade < 18) {
+        throw 'Idade inválida';
+    }
+
     res.status(201).json(await createClient(req.body, db));
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Erro ao criar cliente" });
+    res.status(500).json({ error: err });
   }
 };
 
