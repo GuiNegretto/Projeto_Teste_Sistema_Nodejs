@@ -3,6 +3,9 @@ class Conta {
         this.id = id;
         this.clienteId = clienteId;
         this.saldo = saldo;
+        this.limite_saque = 5000;
+        this.tipo = "PF";
+        this.ativa = True;
         this.transacoes = [];
     }
 

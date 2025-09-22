@@ -12,6 +12,9 @@ app.use("/clientes", clienteRoutes);
 app.use("/contas", contaRoutes);
 
 async function test() {
+  if(process.env.NODE_ENV == "test")
+    return;
+  
   try {
     const result = await db.query("SELECT NOW()");
     console.log("Conectado com sucesso:", result.rows[0]);
@@ -22,6 +25,12 @@ async function test() {
 
 test();
 
-app.listen(3000, () => {
+let server;
+if (process.env.NODE_ENV !== "test") {
+  server = app.listen(3000, () => {
     console.log("Servidor rodando na porta 3000");
-});
+  });
+}
+
+// 👉 exporta ambos
+module.exports = { app, server };
