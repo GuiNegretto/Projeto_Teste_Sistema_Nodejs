@@ -44,6 +44,10 @@ async function _buscarContaPorId(id) {
 }
 
 async function _depositar(id, valor) {
+    if (valor <= 0) {
+      throw new Error("Valor do depósito deve ser um número positivo.");
+    }
+
     const result = await db.query(
         "UPDATE contas SET saldo = saldo + $1 WHERE id = $2 RETURNING *",
         [valor, id]
@@ -54,7 +58,7 @@ async function _depositar(id, valor) {
 async function _sacar(id, valor) {
     const conta = await _buscarContaPorId(id);
 
-    if(conta.limite + conta.limite < valor){
+    if(conta.limite + conta.saldo < valor){
       throw new Error("Saldo insuficiente.");
     }
 
