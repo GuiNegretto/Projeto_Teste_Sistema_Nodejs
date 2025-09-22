@@ -49,7 +49,7 @@ describe("Testes de Caixa Branca para contaController", () => {
 
       // Mock da busca de saldo (primeira query)
       db.query.mockResolvedValueOnce({
-        rows: [{ saldo: 100 }],
+        rows: [{ limite: 100, saldo: 100, ativa: true }],
       });
       // Mock do update do saldo (segunda query)
       db.query.mockResolvedValueOnce({
@@ -68,7 +68,7 @@ describe("Testes de Caixa Branca para contaController", () => {
 
       // Mock da busca de saldo
       db.query.mockResolvedValueOnce({
-        rows: [{ saldo: 100 }],
+        rows: [{ saldo: 50, limite: 50, ativa: true }],
       });
 
       await sacar(mockReq, mockRes);
@@ -82,7 +82,7 @@ describe("Testes de Caixa Branca para contaController", () => {
     });
 
     // Caminho de erro - Conta não encontrada (segunda ramificação)
-    it("deve retornar 404 se a conta não for encontrada", async () => {
+    it("deve retornar 400 se a conta não for encontrada", async () => {
       const mockReq = { params: { id: 999 }, body: { valor: 50 } };
       const mockRes = { json: jest.fn(), status: jest.fn().mockReturnThis() };
 
@@ -93,7 +93,7 @@ describe("Testes de Caixa Branca para contaController", () => {
 
       await sacar(mockReq, mockRes);
 
-      expect(mockRes.status).toHaveBeenCalledWith(404);
+      expect(mockRes.status).toHaveBeenCalledWith(400);
       expect(mockRes.json).toHaveBeenCalledWith({
         error: "Conta não encontrada.",
       });

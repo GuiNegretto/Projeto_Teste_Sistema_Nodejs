@@ -1,10 +1,9 @@
 const { criarCliente } = require("../clienteController");
+const db = require("../../database/db");
 
-jest.mock("../../database/clientDB", () => ({
-  createClient: jest.fn(),
+jest.mock("../../database/db", () => ({
+  query: jest.fn(),
 }));
-
-const { createClient } = require("../../database/clientDB");
 
 describe("Testes de Ramificação para criarCliente", () => {
   beforeEach(() => {
@@ -19,7 +18,9 @@ describe("Testes de Ramificação para criarCliente", () => {
     };
     const mockReq = { body: { nome: "Maria", idade: 25 } };
 
-    createClient.mockResolvedValue({ id: 1, ...mockReq.body });
+    db.query.mockResolvedValue({
+      rows: [{ id: 1, ...mockReq.body }]
+    });
 
     await criarCliente(mockReq, mockRes);
 
@@ -44,6 +45,6 @@ describe("Testes de Ramificação para criarCliente", () => {
     expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith({ error: "Idade inválida" });
     // Garante que o método de criação do cliente não foi chamado
-    expect(createClient).not.toHaveBeenCalled();
+    expect(db.query).not.toHaveBeenCalled();
   });
 });

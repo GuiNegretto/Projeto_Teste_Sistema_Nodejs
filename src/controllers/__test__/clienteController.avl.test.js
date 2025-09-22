@@ -1,10 +1,9 @@
 const { criarCliente } = require("../clienteController");
+const db = require("../../database/db");
 
-jest.mock("../../database/clientDB", () => ({
-  createClient: jest.fn(),
+jest.mock("../../database/db", () => ({
+  query: jest.fn(),
 }));
-
-const { createClient } = require("../../database/clientDB");
 
 describe("Teste AVL para criarCliente", () => {
   it("deve retornar 201 com idade maior ou igual a 18", async () => {
@@ -13,14 +12,18 @@ describe("Teste AVL para criarCliente", () => {
 
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    createClient.mockResolvedValue({ id: 1, ...cliente1 });
+    db.query.mockResolvedValue({
+      rows: [{ id: 1, ...cliente1 }]
+    });
 
     await criarCliente({ body: cliente1 }, mockRes);
 
     expect(mockRes.status).toHaveBeenCalledWith(201);
     expect(mockRes.json).toHaveBeenCalledWith({ id: 1, ...cliente1 });
 
-    createClient.mockResolvedValue({ id: 2, ...cliente2 });
+    db.query.mockResolvedValue({
+      rows: [{ id: 2, ...cliente2 }]
+    });
 
     await criarCliente({ body: cliente2 }, mockRes);
 
@@ -33,7 +36,9 @@ describe("Teste AVL para criarCliente", () => {
 
     const mockRes = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-    createClient.mockResolvedValue({ id: 1, ...cliente });
+    db.query.mockResolvedValue({
+      rows: [{ id: 1, ...cliente }]
+    });
 
     await criarCliente({ body: cliente }, mockRes);
 
