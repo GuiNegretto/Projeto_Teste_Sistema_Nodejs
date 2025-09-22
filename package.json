@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "start": "node ./src/app.js",
     "test": "jest",
     "test:fuzz": "jazzer ./src/controllers/__test__/clienteController.fuzz.js"
   },

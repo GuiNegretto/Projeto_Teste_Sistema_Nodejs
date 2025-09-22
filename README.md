@@ -47,7 +47,7 @@ npm i
 
 2. Execute a API
 ```
-node src/app.js
+npm run start
 ```
 
 ---
