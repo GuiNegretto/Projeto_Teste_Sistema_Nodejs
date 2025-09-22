@@ -1,6 +1,5 @@
 //const Cliente = require("../models/cliente");
 const db = require("../database/db");
-const { createClient } = require("../database/clientDB");
 
 exports.criarCliente = async (req, res) => {
   try {
@@ -10,7 +9,12 @@ exports.criarCliente = async (req, res) => {
         throw 'Idade inválida';
     }
 
-    res.status(201).json(await createClient(req.body, db));
+    const result = await db.query(
+        "INSERT INTO clientes (id, nome, idade, email, id_conta) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+        [cliente.id, cliente.nome, cliente.idade, cliente.email, cliente.id_conta]
+    );
+
+    res.status(201).json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ error: err });
   }

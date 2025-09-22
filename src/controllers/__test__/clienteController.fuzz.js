@@ -8,18 +8,6 @@ require.cache[require.resolve('../../database/db')] = {
   exports: mockDb
 };
 
-require.cache[require.resolve('../../database/clientDB')] = {
-  exports: {
-    createClient: async (client, db) => {
-      return {
-        id: Math.floor(Math.random() * 1000) + 1,
-        ...client,
-        created_at: new Date().toISOString()
-      };
-    }
-  }
-};
-
 const { criarCliente } = require('../clienteController');
 
 const mockRes = {
