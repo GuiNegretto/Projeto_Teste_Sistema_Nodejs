@@ -1,11 +1,15 @@
 const { depositar, sacar } = require("../contaController");
-const db = require("../database/db");
+const db = require("../../database/db");
 
-jest.mock("../database/db", () => ({
+jest.mock("../../database/db", () => ({
   query: jest.fn(),
 }));
 
 describe("Testes de Caixa Branca para contaController", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("Teste de Ramificação para 'depositar'", () => {
     // Caso de sucesso (caminho feliz)
     it("deve realizar o depósito com sucesso para um valor positivo", async () => {

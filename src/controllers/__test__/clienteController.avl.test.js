@@ -6,7 +6,7 @@ jest.mock("../../database/clientDB", () => ({
 
 const { createClient } = require("../../database/clientDB");
 
-describe("criarCliente", () => {
+describe("Teste AVL para criarCliente", () => {
   it("deve retornar 201 com idade maior ou igual a 18", async () => {
     const cliente1 = { nome: "João", idade: 18 };
     const cliente2 = { nome: "João", idade: 19 };
