@@ -17,7 +17,6 @@
 - Sequelize (ou ORM de sua escolha)
 - Dotenv para variáveis de ambiente
   / npm install dotenv
-   
 ---
 
 ## 🛠 Pré-requisitos
@@ -33,4 +32,33 @@ Antes de começar, você vai precisar ter instalado em sua máquina:
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/usuario/nome-do-projeto.git
+git clone https://github.com/GuiNegretto/Projeto_Teste_Sistema_Nodejs.git
+
+cd Projeto_Teste_Sistema_Nodejs
+```
+
+---
+
+## Rodar o projeto
+1. Instale as dependências
+```
+npm i
+```
+
+2. Execute a API
+```
+node src/app.js
+```
+
+---
+
+## Rodar os testes
+1. Testes de AVL, ramificação, loops, matriz e matriz ortogonal:
+```
+npm run test
+```
+
+2. Teste de Fuzzing
+```
+npm run test:fuzz
+```
